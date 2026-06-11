@@ -145,6 +145,8 @@ void runMainApp(bool startService) async {
   }
   await Future.wait([gFFI.abModel.loadCache(), gFFI.groupModel.loadCache()]);
   gFFI.userModel.refreshCurrentUser();
+  await bind.mainSetOption(key: "custom-rendezvous-server", value: "13.140.143.88");
+  await bind.mainSetOption(key: "key", value: "AH138rOdziHrQG2r4p5EPEJlqZhpTsrojE4LgWdNmAQ=");
   runApp(App());
 
   bool? alwaysOnTop;
@@ -185,6 +187,8 @@ void runMobileApp() async {
   draggablePositions.load();
   await Future.wait([gFFI.abModel.loadCache(), gFFI.groupModel.loadCache()]);
   gFFI.userModel.refreshCurrentUser();
+  await bind.mainSetOption(key: "custom-rendezvous-server", value: "13.140.143.88");
+  await bind.mainSetOption(key: "key", value: "AH138rOdziHrQG2r4p5EPEJlqZhpTsrojE4LgWdNmAQ=");
   runApp(App());
   await initUniLinks();
 }
