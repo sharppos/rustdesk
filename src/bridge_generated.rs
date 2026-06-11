@@ -2369,24 +2369,6 @@ fn wire_main_get_api_server_impl(port_: MessagePort) {
         move || move |task_callback| Ok(main_get_api_server()),
     )
 }
-fn wire_main_deploy_device_impl(
-    port_: MessagePort,
-    token: impl Wire2Api<String> + UnwindSafe,
-    id: impl Wire2Api<String> + UnwindSafe,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, String>(
-        WrapInfo {
-            debug_name: "main_deploy_device",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || {
-            let api_token = token.wire2api();
-            let api_id = id.wire2api();
-            move |task_callback| Ok(main_deploy_device(api_token, api_id))
-        },
-    )
-}
 fn wire_main_resolve_avatar_url_impl(
     avatar: impl Wire2Api<String> + UnwindSafe,
 ) -> support::WireSyncReturn {
@@ -3192,20 +3174,14 @@ fn wire_main_get_temporary_password_impl(port_: MessagePort) {
         move || move |task_callback| Ok(main_get_temporary_password()),
     )
 }
-fn wire_main_set_permanent_password_with_result_impl(
-    port_: MessagePort,
-    password: impl Wire2Api<String> + UnwindSafe,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, bool>(
+fn wire_main_get_permanent_password_impl(port_: MessagePort) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, String>(
         WrapInfo {
-            debug_name: "main_set_permanent_password_with_result",
+            debug_name: "main_get_permanent_password",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
-        move || {
-            let api_password = password.wire2api();
-            move |task_callback| Ok(main_set_permanent_password_with_result(api_password))
-        },
+        move || move |task_callback| Ok(main_get_permanent_password()),
     )
 }
 fn wire_main_get_fingerprint_impl(port_: MessagePort) {
@@ -3746,6 +3722,22 @@ fn wire_main_update_temporary_password_impl(port_: MessagePort) {
             mode: FfiCallMode::Normal,
         },
         move || move |task_callback| Ok(main_update_temporary_password()),
+    )
+}
+fn wire_main_set_permanent_password_impl(
+    port_: MessagePort,
+    password: impl Wire2Api<String> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, ()>(
+        WrapInfo {
+            debug_name: "main_set_permanent_password",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_password = password.wire2api();
+            move |task_callback| Ok(main_set_permanent_password(api_password))
+        },
     )
 }
 fn wire_main_check_super_user_permission_impl(port_: MessagePort) {

@@ -1057,15 +1057,6 @@ pub extern "C" fn wire_main_get_api_server(port_: i64) {
 }
 
 #[no_mangle]
-pub extern "C" fn wire_main_deploy_device(
-    port_: i64,
-    token: *mut wire_uint_8_list,
-    id: *mut wire_uint_8_list,
-) {
-    wire_main_deploy_device_impl(port_, token, id)
-}
-
-#[no_mangle]
 pub extern "C" fn wire_main_resolve_avatar_url(
     avatar: *mut wire_uint_8_list,
 ) -> support::WireSyncReturn {
@@ -1416,11 +1407,8 @@ pub extern "C" fn wire_main_get_temporary_password(port_: i64) {
 }
 
 #[no_mangle]
-pub extern "C" fn wire_main_set_permanent_password_with_result(
-    port_: i64,
-    password: *mut wire_uint_8_list,
-) {
-    wire_main_set_permanent_password_with_result_impl(port_, password)
+pub extern "C" fn wire_main_get_permanent_password(port_: i64) {
+    wire_main_get_permanent_password_impl(port_)
 }
 
 #[no_mangle]
@@ -1664,6 +1652,11 @@ pub extern "C" fn wire_main_start_service(port_: i64) {
 #[no_mangle]
 pub extern "C" fn wire_main_update_temporary_password(port_: i64) {
     wire_main_update_temporary_password_impl(port_)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_main_set_permanent_password(port_: i64, password: *mut wire_uint_8_list) {
+    wire_main_set_permanent_password_impl(port_, password)
 }
 
 #[no_mangle]
